@@ -12,7 +12,6 @@ def generate(numSentences):
       bestSentences.append(sentence)
       if (len(bestSentences) == numSentences):
         break;
-
   return bestSentences
 
 def amazon_lambda_handler(event, context):
