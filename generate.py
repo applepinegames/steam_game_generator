@@ -37,7 +37,7 @@ def generate(num_sentences):
   return best_sentences
 
 def amazon_lambda_handler(event, context):
-  return generate(min(100, event.count))
+  return generate(5)
 
 if __name__ == '__main__':
   print generate(1)[0]
