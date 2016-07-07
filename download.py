@@ -35,10 +35,12 @@ def getDescriptionFromAppData(appData):
   description = cleanString(appData["data"]["detailed_description"])
   sentences = SENTENCE_DETECTOR.tokenize(description.strip())
   if (len(sentences) > 0):
-    sentence = sentences[0]
-    if (not sentence[0].isalpha() or len(sentence.split(" ")) < 5):
+    sentences = sentences[0:(min(3, len(sentences)))]
+    sentences = [x for x in sentences if len(x.split(" ")) > 5 and not x.split(" ")[0].isupper() and x.find("\r") == -1]
+    combinedSentence = " ".join(sentences)
+    if (len(combinedSentence) == 0 or not combinedSentence[0].isalpha() or len(combinedSentence.split(" ")) < 5):
       return None
-    return sentence
+    return combinedSentence
   return None
 
 def getTitleFromAppData(appData):
