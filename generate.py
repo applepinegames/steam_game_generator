@@ -5,5 +5,5 @@ with open("description.txt") as f:
 
 text_model = markovify.Text(text)
 
-for i in range(20):
+for i in range(5):
     print(text_model.make_sentence())
