@@ -1,4 +1,4 @@
-import markovify, sys
+import markovify, random, sys
 
 def cleanup_sentence(sentence):
   is_a_index = sentence.find(' is a ')
@@ -28,11 +28,21 @@ def generate(num_sentences):
     text = f.read()
   text_model = markovify.Text(text)
   best_sentences = []
-  while (True):
-    sentence = text_model.make_short_sentence(140).capitalize()
+  sentence_length = 140
+  while True:
+    sentence = text_model.make_short_sentence(sentence_length).capitalize()
     if is_good_sentence(sentence):
-      best_sentences.append(cleanup_sentence(sentence))
-      if (len(best_sentences) == num_sentences):
+      sentence = cleanup_sentence(sentence)
+      word_count = len(sentence.split())
+
+      # For some short sentences, add another sentence
+      if word_count < 11 and random.random() > 0.5:
+        second_sentence = text_model.make_short_sentence(sentence_length - len(sentence)).capitalize()
+        if second_sentence and second_sentence.find(' is a ') == -1:
+          sentence += " " + second_sentence
+
+      best_sentences.append(sentence)
+      if len(best_sentences) == num_sentences:
         break;
   return best_sentences
 
