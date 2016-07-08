@@ -6,14 +6,14 @@ def cleanup_sentence(sentence):
   return sentence
 
 def is_good_sentence(sentence):
-  wordCount = len(sentence.split())
+  word_count = len(sentence.split())
   is_a_index = sentence.find(' is a ')
   # Make sure the format is: {Title} is a {description}
   if is_a_index == -1:
     return False
 
   # Make sure it's sufficiently long
-  if wordCount < 5:
+  if word_count < 5:
     return False
 
   # Only keep titles that are under a few words
